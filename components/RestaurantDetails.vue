@@ -19,9 +19,7 @@ export default {
   },
   methods: {
     show(id) {
-      console.log('ID', id)
       return axios.get(`${this.url}restaurant?res_id=${id}&apikey=${this.apiKey}`).then(({ data }) => {
-        console.log('DATA', data)
         this.restaurant = data
         this.active = true
       })
