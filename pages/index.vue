@@ -1,7 +1,5 @@
 <template>
-<div class="flex">
-  <restaurant-list></restaurant-list>
-</div>
+<restaurant-list></restaurant-list>
 </div>
 </template>
 

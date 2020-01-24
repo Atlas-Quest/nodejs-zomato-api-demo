@@ -1,12 +1,20 @@
 <template>
-<div class="flex flex-col fixed inset-0 h-full w-2/6 overflow-auto bg-gray-100">
-  <h2 class="pl-12 py-4 mr-4 border-b border-gray-200 text-xs uppercase">Results</h2>
-  <div v-for="(r, rIndex) in restaurantList"
-       :key="rIndex">
-    <div class="pl-12 py-4 mr-4 border-b border-gray-200 solid text-sm">
-      {{r.name}}
+<div class="flex">
+  <div class="w-2/6">
+    <div class="fixed w-2/6 inset-0 overflow-auto bg-gray-100">
+      <h2 class="pl-12 py-4 mr-4 border-b border-gray-200 text-xs uppercase">Results</h2>
+      <div v-for="(r, rIndex) in restaurantList"
+           :key="rIndex">
+        <div class="pl-12 py-4 mr-4 border-b border-gray-200 solid text-sm"
+             @click="showDetails({id: r.id})">
+          {{r.name}}
+        </div>
+      </div>
     </div>
   </div>
+
+  <restaurant-details class="w-4/6"
+                      ref="details"></restaurant-details>
 </div>
 </template>
 
@@ -14,8 +22,11 @@
 import axios from 'axios'
 import { map } from 'lodash'
 
+import RestaurantDetails from './RestaurantDetails'
+
 export default {
   name: 'List',
+  components: { RestaurantDetails },
   data() {
     return {
       restaurants: null,
@@ -28,9 +39,12 @@ export default {
   },
   methods: {
     getRestaurants() {
-      return axios.get(`${this.url} + entity_id=297&entity_type=city&start=1&count=50 + &apikey=${this.apiKey}`).then(({ data }) => {
+      return axios.get(`${this.url}search?entity_id=297&entity_type=city&start=1&count=50&apikey=${this.apiKey}`).then(({ data }) => {
         this.restaurants = data.restaurants
       })
+    },
+    showDetails({ id }) {
+      this.$refs.details.show(id)
     }
   },
   computed: {
