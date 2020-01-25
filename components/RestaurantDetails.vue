@@ -12,29 +12,28 @@
     <div class="flex">
       {{restaurant.location.address}}
     </div>
-    <div v-if="restaurant.has_table_booking"
-         class="flex">
-      tick
+    <div v-if="restaurant.has_table_booking">
+      Bookings available
     </div>
-    <div v-else
-         class="flex">
-      cross
+    <div v-else>
+      No bookings
     </div>
-    <div v-if="restaurant.is_delivering_now"
-         class="flex">
-      tick
+    <div v-if="restaurant.is_delivering_now">
+      Delivery available
     </div>
-    <div v-else
-         class="flex">
-      cross
+    <div v-else>
+      No delivery
     </div>
-    <div class="">
+    <div>
+      <h2>Cuisines</h2>
       {{restaurant.cuisines}}
     </div>
-    <div class="">
+    <div>
+      <h2>Phone Number</h2>
       {{restaurant.phone_numbers}}
     </div>
-    <div class="">
+    <div>
+      <h2>Opening hours</h2>
       {{restaurant.timings}}
     </div>
   </div>

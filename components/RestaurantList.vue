@@ -1,5 +1,6 @@
 <template>
 <div class="flex">
+  {{bookingsAvailable}}
   <div class="w-2/6">
     <div class="fixed w-2/6 inset-0 overflow-auto bg-gray-100">
       <h2 class="pl-12 py-4 mr-4 border-b border-gray-200 text-xs uppercase">Results</h2>
@@ -20,7 +21,7 @@
 
 <script>
 import axios from 'axios'
-import { map } from 'lodash'
+import { map, find } from 'lodash'
 
 import RestaurantDetails from './RestaurantDetails'
 
@@ -39,7 +40,7 @@ export default {
   },
   methods: {
     getRestaurants() {
-      return axios.get(`${this.url}search?entity_id=297&entity_type=city&start=1&count=50&apikey=${this.apiKey}`).then(({ data }) => {
+      return axios.get(`${this.url}search?entity_id=297&entity_type=city&start=1&count=20&apikey=${this.apiKey}`).then(({ data }) => {
         this.restaurants = data.restaurants
       })
     },
@@ -56,6 +57,10 @@ export default {
           location: r.restaurant.location
         }
       })
+    },
+    bookingsAvailable() {
+      console.log('FIND(THIS.RESTAURANTS, R => R.HAS_TABLE_BOOKING)', find(this.restaurants, r => r.has_table_booking === -1))
+      return find(this.restaurants, r => r.has_table_booking)
     }
   }
 }
